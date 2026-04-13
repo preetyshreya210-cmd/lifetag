@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LifeTag Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            padding: 30px;
+        }
+        .wrap {
+            max-width: 1200px;
+            margin: auto;
+        }
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        h2 { margin: 0; color: #1f2d3d; }
+        form {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        input[type="text"] {
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            min-width: 260px;
+        }
+        button {
+            padding: 12px 18px;
+            border: none;
+            border-radius: 10px;
+            background: #1565c0;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .table-box {
+            background: white;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.07);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th {
+            background: linear-gradient(135deg, #1565c0, #0d47a1);
+            color: white;
+            padding: 16px;
+            text-align: left;
+        }
+        td {
+            padding: 14px 16px;
+            border-bottom: 1px solid #edf0f5;
+        }
+        tr:hover {
+            background: #f8fbff;
+        }
+        a {
+            text-decoration: none;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .view { color: #1565c0; }
+        .edit { color: #2e7d32; }
+        .delete { color: #c62828; }
+        .empty {
+            padding: 30px;
+            text-align: center;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="topbar">
+            <h2>📋 LifeTag Dashboard</h2>
+            <form method="GET" action="/dashboard">
+                <input type="text" name="q" value="{{ q }}" placeholder="Search by LifeTag ID or patient name">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+
+        <div class="table-box">
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Blood</th>
+                    <th>Profile Type</th>
+                    <th>Actions</th>
+                </tr>
+
+                {% if users %}
+                    {% for u in users %}
+                    <tr>
+                        <td>{{ u.id }}</td>
+                        <td>{{ u.name }}</td>
+                        <td>{{ u.age }}</td>
+                        <td>{{ u.blood }}</td>
+                        <td>{{ u.profile_type }}</td>
+                        <td>
+                            <a class="view" href="/profile/{{ u.id }}">View</a>
+                            <a class="edit" href="/edit/{{ u.id }}">Edit</a>
+                            <a class="delete" href="/delete/{{ u.id }}">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="6" class="empty">No matching profiles found.</td>
+                    </tr>
+                {% endif %}
+            </table>
+        </div>
+    </div>
+</body>
+</html>

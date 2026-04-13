@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create LifeTag</title>
+    <style>
+        * { box-sizing: border-box; font-family: Arial, sans-serif; }
+        body {
+            margin: 0;
+            background: linear-gradient(135deg, #eef4ff, #f8fbff);
+            padding: 30px;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 14px 40px rgba(0,0,0,0.08);
+        }
+        .top {
+            background: linear-gradient(135deg, #c62828, #1565c0);
+            color: white;
+            text-align: center;
+            padding: 28px;
+        }
+        .form-section { padding: 30px; }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+        .full { grid-column: 1 / -1; }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 15px;
+        }
+        textarea { min-height: 90px; resize: vertical; }
+        .btn {
+            width: 100%;
+            padding: 14px;
+            margin-top: 12px;
+            border: none;
+            background: #c62828;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 12px;
+            cursor: pointer;
+        }
+        @media (max-width: 700px) {
+            .grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="top">
+            <h1>🚑 Create LifeTag</h1>
+            <p>Emergency identity profile</p>
+        </div>
+
+        <div class="form-section">
+            <form action="/register" method="POST" enctype="multipart/form-data">
+                <div class="grid">
+                    <div class="full">
+                        <label>Profile Type</label>
+                        <select name="profile_type">
+                            <option>Self</option>
+                            <option>Parent</option>
+                            <option>Child</option>
+                            <option>Elderly Family Member</option>
+                        </select>
+                    </div>
+
+                    <div class="full">
+                        <label>Full Name</label>
+                        <input type="text" name="name" required>
+                    </div>
+
+                    <div>
+                        <label>Date of Birth</label>
+                        <input type="date" name="dob" required>
+                    </div>
+
+                    <div>
+                        <label>Blood Group</label>
+                        <input type="text" name="blood" placeholder="e.g. B+" required>
+                    </div>
+
+                    <div>
+                        <label>Primary Emergency Contact</label>
+                        <input type="text" name="contact" required>
+                    </div>
+
+                    <div>
+                        <label>Secondary Emergency Contact</label>
+                        <input type="text" name="secondary_contact">
+                    </div>
+
+                    <div>
+                        <label>Doctor Contact</label>
+                        <input type="text" name="doctor_contact">
+                    </div>
+
+                    <div>
+                        <label>Profile Photo</label>
+                        <input type="file" name="photo" accept="image/*">
+                    </div>
+
+                    <div class="full">
+                        <label>Critical Condition</label>
+                        <input type="text" name="critical_condition" placeholder="e.g. Severe Asthma / Epilepsy / Heart Condition">
+                    </div>
+
+                    <div class="full">
+                        <label>Allergies</label>
+                        <textarea name="allergies"></textarea>
+                    </div>
+
+                    <div class="full">
+                        <label>Current Medicines</label>
+                        <textarea name="medicines"></textarea>
+                    </div>
+
+                    <div class="full">
+                        <label>Emergency Instructions</label>
+                        <textarea name="emergency_instructions" placeholder="Example: Do not give penicillin. Keep inhaler nearby. Contact father first."></textarea>
+                    </div>
+
+                    <div class="full">
+                        <label>Additional Medical Notes</label>
+                        <textarea name="notes"></textarea>
+                    </div>
+
+                    <div class="full">
+                        <button type="submit" class="btn">Create LifeTag</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

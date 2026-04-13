@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LifeTag Printable Card</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f4f8;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .card {
+            width: 360px;
+            margin: auto;
+            background: white;
+            border-radius: 18px;
+            box-shadow: 0 10px 24px rgba(0,0,0,0.08);
+            overflow: hidden;
+            border: 1px solid #ddd;
+        }
+
+        .top {
+            background: #c62828;
+            color: white;
+            padding: 20px;
+        }
+
+        .top h2 {
+            margin: 0;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .row {
+            margin: 12px 0;
+            font-size: 16px;
+        }
+
+        img {
+            width: 180px;
+            margin-top: 15px;
+        }
+
+        .note {
+            margin-top: 14px;
+            font-size: 13px;
+            color: #666;
+        }
+
+        .print-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 18px;
+            background: #1565c0;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+
+        @media print {
+            .print-btn {
+                display: none;
+            }
+
+            body {
+                background: white;
+            }
+
+            .card {
+                box-shadow: none;
+                border: 1px solid #aaa;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="top">
+            <h2>🚑 LifeTag</h2>
+            <p>Emergency Health Card</p>
+        </div>
+
+        <div class="content">
+            <div class="row"><strong>Name:</strong> {{ data[2] }}</div>
+            <div class="row"><strong>Blood Group:</strong> {{ data[4] }}</div>
+            <div class="row"><strong>Emergency Contact:</strong> {{ data[7] }}</div>
+
+            <img src="/static/{{ data[0] }}.png" alt="QR Code">
+
+            <div class="note">
+                Scan QR for emergency medical information
+            </div>
+        </div>
+    </div>
+
+    <a href="#" class="print-btn" onclick="window.print()">Print Card</a>
+    <div class="row"><strong>Name:</strong> {{ data[2] }}</div>
+<div class="row"><strong>Blood Group:</strong> {{ data[4] }}</div>
+<div class="row"><strong>Emergency Contact:</strong> {{ data[7] }}</div>
+</body>
+</html>

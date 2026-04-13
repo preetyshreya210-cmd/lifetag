@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LifeTag Created</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #eef4ff, #f8fbff);
+            padding: 30px;
+        }
+        .card {
+            max-width: 760px;
+            margin: auto;
+            background: white;
+            border-radius: 18px;
+            box-shadow: 0 14px 35px rgba(0,0,0,0.08);
+            overflow: hidden;
+            text-align: center;
+        }
+        .top {
+            background: #2e7d32;
+            color: white;
+            padding: 28px;
+        }
+        .content { padding: 30px; }
+        img { width: 220px; margin: 20px 0; }
+        .btn-row {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .btn {
+            text-decoration: none;
+            color: white;
+            padding: 12px 18px;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+        .red { background: #c62828; }
+        .blue { background: #1565c0; }
+        .purple { background: #6a1b9a; }
+        .gray { background: #5f6368; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="top">
+            <h1>✅ LifeTag Created</h1>
+            <p>Your emergency profile is ready</p>
+        </div>
+
+        <div class="content">
+            <p><strong>LifeTag ID:</strong> {{ user_id }}</p>
+            <img src="/static/{{ user_id }}.png" alt="QR Code">
+
+            <div class="btn-row">
+                <a class="btn red" href="/profile/{{ user_id }}">Public View</a>
+                <a class="btn purple" href="/medical/{{ user_id }}">Medical View</a>
+                <a class="btn blue" href="/card/{{ user_id }}">Printable Card</a>
+                <a class="btn gray" href="/download-pdf/{{ user_id }}">Download PDF</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

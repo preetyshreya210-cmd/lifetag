@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LifeTag Scan History</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+
+        .top {
+            background: #1565c0;
+            color: white;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .content {
+            padding: 24px;
+        }
+
+        .log-item {
+            background: #f9fafc;
+            border: 1px solid #e2e6ef;
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+
+        .empty {
+            text-align: center;
+            color: #666;
+            padding: 30px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="top">
+            <h2>📋 Scan History</h2>
+            <p>{{ user[1] }} — LifeTag Access Logs</p>
+        </div>
+
+        <div class="content">
+            {% if logs %}
+                {% for log in logs %}
+                    <div class="log-item">
+    <strong>{{ log[0] }}</strong> — {{ log[1] }}
+</div>
+                {% endfor %}
+            {% else %}
+                <div class="empty">No scans recorded yet.</div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

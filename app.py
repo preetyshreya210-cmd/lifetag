@@ -123,7 +123,7 @@ def register():
     conn.commit()
     conn.close()
 
-    profile_url = f"http://127.0.0.1:5000/profile/{user_id}"
+    profile_url = f"http://10.12.11.197:5000/public/{lifetag_id}"
     img = qrcode.make(profile_url)
     img.save(f"static/{user_id}.png")
 
@@ -406,4 +406,4 @@ def download_pdf(id):
 
 if __name__ == "__main__":
     init_db()
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=True)

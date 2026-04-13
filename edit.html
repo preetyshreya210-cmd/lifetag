@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit LifeTag</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            background: linear-gradient(135deg, #eef4ff, #f8fbff);
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 14px 40px rgba(0,0,0,0.08);
+        }
+
+        .top {
+            background: linear-gradient(135deg, #1565c0, #0d47a1);
+            color: white;
+            text-align: center;
+            padding: 28px;
+        }
+
+        .top h1 {
+            margin: 0;
+            font-size: 32px;
+        }
+
+        .top p {
+            margin-top: 8px;
+            font-size: 15px;
+            opacity: 0.95;
+        }
+
+        .form-section {
+            padding: 30px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d7dce3;
+            border-radius: 10px;
+            font-size: 15px;
+            outline: none;
+            transition: 0.2s ease;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            border-color: #1565c0;
+            box-shadow: 0 0 0 3px rgba(21, 101, 192, 0.10);
+        }
+
+        textarea {
+            min-height: 95px;
+            resize: vertical;
+        }
+
+        .photo-box {
+            background: #f7f9fc;
+            border: 1px solid #e4e8ef;
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .photo-box img {
+            width: 110px;
+            height: 110px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid #e8edf5;
+            margin-bottom: 12px;
+        }
+
+        .btn-row {
+            display: flex;
+            gap: 14px;
+            margin-top: 14px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            flex: 1;
+            min-width: 180px;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .save-btn {
+            background: #1565c0;
+        }
+
+        .save-btn:hover {
+            background: #0d47a1;
+        }
+
+        .back-btn {
+            background: #5f6368;
+        }
+
+        .back-btn:hover {
+            background: #4b4f54;
+        }
+
+        .info-note {
+            margin-top: 16px;
+            font-size: 13px;
+            color: #666;
+            text-align: center;
+        }
+
+        @media (max-width: 700px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .top h1 {
+                font-size: 27px;
+            }
+
+            .btn-row {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="top">
+            <h1>✏️ Edit LifeTag Profile</h1>
+            <p>Update emergency details and keep the profile current</p>
+        </div>
+
+        <div class="form-section">
+            <form method="POST" action="/update/{{ data[0] }}" enctype="multipart/form-data">
+                <div class="grid">
+                    <div class="full">
+                        <label>Profile Type</label>
+                        <select name="profile_type">
+                            <option value="Self" {% if data[1] == 'Self' %}selected{% endif %}>Self</option>
+                            <option value="Parent" {% if data[1] == 'Parent' %}selected{% endif %}>Parent</option>
+                            <option value="Child" {% if data[1] == 'Child' %}selected{% endif %}>Child</option>
+                            <option value="Elderly Family Member" {% if data[1] == 'Elderly Family Member' %}selected{% endif %}>Elderly Family Member</option>
+                        </select>
+                    </div>
+
+                    <div class="full">
+                        <label>Full Name</label>
+                        <input type="text" name="name" value="{{ data[2] }}" required>
+                    </div>
+
+                    <div>
+                        <label>Date of Birth</label>
+                        <input type="date" name="dob" value="{{ data[3] }}" required>
+                    </div>
+
+                    <div>
+                        <label>Blood Group</label>
+                        <input type="text" name="blood" value="{{ data[4] }}" required>
+                    </div>
+
+                    <div>
+                        <label>Primary Emergency Contact</label>
+                        <input type="text" name="contact" value="{{ data[7] }}" required>
+                    </div>
+
+                    <div>
+                        <label>Secondary Emergency Contact</label>
+                        <input type="text" name="secondary_contact" value="{{ data[8] }}">
+                    </div>
+
+                    <div>
+                        <label>Doctor Contact</label>
+                        <input type="text" name="doctor_contact" value="{{ data[9] }}">
+                    </div>
+
+                    <div>
+                        <label>Critical Condition</label>
+                        <input type="text" name="critical_condition" value="{{ data[10] }}">
+                    </div>
+
+                    <div class="full">
+                        <label>Current Profile Photo</label>
+                        <div class="photo-box">
+                            {% if data[13] %}
+                                <img src="/static/uploads/{{ data[13] }}" alt="Current Profile Photo">
+                                <div>Current uploaded photo</div>
+                            {% else %}
+                                <div style="padding: 20px; color: #666;">No profile photo uploaded</div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="full">
+                        <label>Upload New Profile Photo</label>
+                        <input type="file" name="photo" accept="image/*">
+                    </div>
+
+                    <div class="full">
+                        <label>Allergies</label>
+                        <textarea name="allergies">{{ data[5] }}</textarea>
+                    </div>
+
+                    <div class="full">
+                        <label>Current Medicines</label>
+                        <textarea name="medicines">{{ data[6] }}</textarea>
+                    </div>
+
+                    <div class="full">
+                        <label>Emergency Instructions</label>
+                        <textarea name="emergency_instructions">{{ data[11] }}</textarea>
+                    </div>
+
+                    <div class="full">
+                        <label>Additional Medical Notes</label>
+                        <textarea name="notes">{{ data[12] }}</textarea>
+                    </div>
+
+                    <div class="full btn-row">
+                        <button type="submit" class="btn save-btn">Save Changes</button>
+                        <a href="/dashboard" class="btn back-btn">Back to Dashboard</a>
+                    </div>
+                </div>
+            </form>
+
+            <div class="info-note">
+                Keep emergency contacts, allergies, medicines, and instructions updated for better emergency response.
+            </div>
+        </div>
+    </div>
+</body>
+</html>
